@@ -4,8 +4,8 @@ export interface Timestamps {
 }
 
 export interface AuthorSignature {
-  createdBy: string;
-  updatedBy: string;
+  // createdBy: string;
+  // updatedBy: string;
 }
 
 export interface BaseEntity {
@@ -14,6 +14,7 @@ export interface BaseEntity {
 export type SocialNetworks = {
   instagram: string;
   ticktok: string;
+  facebook: string;
 }
 
 export type DayOfWeek =

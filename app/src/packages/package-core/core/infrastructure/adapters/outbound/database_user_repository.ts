@@ -2,9 +2,9 @@
 
 import { PrismaClient } from '@prisma/client';
 import { User } from '../../../domain/entities/user';
-import { UserRepository } from '../../../domain/repositories/user_repository';
+import { QueryReposity } from '../../../domain/repositories/queryRepo';
 
-export class DatabaseUserRepository implements UserRepository {
+export class DatabaseUserRepository implements QueryReposity<User> {
   constructor(private prisma: PrismaClient) { }
 
   async findById(id: string): Promise<User | null> {
@@ -41,6 +41,14 @@ export class DatabaseUserRepository implements UserRepository {
     // TODO
     return {} as User
   }
-
+  
+  async findAll(): Promise<User[]> {
+    try {
+      const a = await this.prisma.user.findMany();
+      return a as User[];
+    } catch (e) {
+      throw new Error("Faild to find all", e as any)
+    }
+  }
   // TODO: Implement other methods...
 }

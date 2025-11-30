@@ -13,6 +13,6 @@ export class User {
   get name() { return this.props.name; }
   get createdAt() { return this.props.createdAt; }
   get updatedAt() { return this.props.updatedAt; }
-  get updatedBy() { return this.props.updatedBy; }
-  get createdBy() { return this.props.createdBy; }
+  // get updatedBy() { return this.props.updatedBy; }
+  // get createdBy() { return this.props.createdBy; }
 }

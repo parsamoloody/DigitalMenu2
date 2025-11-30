@@ -17,7 +17,7 @@ export class MenuMapper {
     return {
       id: menu.id,
       name: menu.name,
-      subname: menu.subName,
+      subname: menu.subname,
       avatar: menu.avatar,
       bio: menu.bio,
       category: menu.categories,

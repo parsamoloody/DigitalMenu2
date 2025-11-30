@@ -1,14 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import { MenuRepository } from "../../../domain/repositories/menu_repository";
-import { MenuBasicProps, MenuCreateInput } from "@/packages/package-core/types";
+import { PrismaClient } from "@prisma/client/extension";
 import { Menu } from "../../../domain/entities/menu";
-import { UserRepository } from "../../../domain/repositories/user_repository";
-import { User } from "../../../domain/entities/user";
+import { QueryReposity } from "../../../domain/repositories/queryRepo";
 
-export class DatabaseMenuRepository implements MenuRepository {
+export class MenuDatabaseMenuRepository implements Partial<QueryReposity<Menu>> {
     constructor(
-        private menuRepository: MenuRepository,
-        private userRepository: UserRepository
+        private prisma: PrismaClient,
     ) { }
 
     async create(menu: Menu): Promise<Menu> {
@@ -16,14 +12,53 @@ export class DatabaseMenuRepository implements MenuRepository {
         const final_payload = {
             ...menu,
             createdAt: new Date,
-            createdBy: ""
-        } as MenuCreateInput
+            // createdBy: ""
+        } as Menu
         try {
-            return await this.menuRepository.create(final_payload);
+            console.log("data---", final_payload)
+            return await this.prisma.menu.create({ data: menu });
         } catch (e) {
-            throw new Error("Error on created")
+            throw new Error("Failed created", e as any)
         }
 
+    }
+    async findById(id: string): Promise<Menu | null> {
+        try {
+            return await this.prisma.menu.findUnique({ where: { id } });
+        } catch (e) {
+            throw new Error("Failed to find by id", e as any)
+        }
+    }
+    async findAll(): Promise<Menu[]> {
+        try {
+            return await this.prisma.menu.findMany();
+        } catch (e) {
+            throw new Error(`Failed to fetch all: ${e instanceof Error ? e.message : e}`)
+        }
+    }
+    async delete(id: string): Promise<boolean> {
+        try {
+            return await this.prisma.menu.delete(id)
+        } catch (e) {
+            throw new Error("Failed to delete", e as any)
+        }
+    }
+    async update(id: string, data: Partial<Menu>): Promise<Menu> {
+        try {
+            return await this.prisma.menu.update({
+                where: { id },
+                data,
+            });
+        } catch (e) {
+            throw new Error("Failed to update", e as any)
+        }
+    }
+    async findOne(where: Partial<Menu>): Promise<Menu | null> {
+        try {
+            return await this.prisma.menu.findUnique({ where })
+        } catch (e) {
+            throw new Error("Faild to find one ", e as any)
+        }
     }
 
 }

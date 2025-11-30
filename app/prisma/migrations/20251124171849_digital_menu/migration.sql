@@ -14,6 +14,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Menu" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "displayId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "subname" TEXT,
     "avatar" TEXT,

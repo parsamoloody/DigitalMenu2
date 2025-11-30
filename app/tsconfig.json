@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "src/packages/package-core/core/domain/repositories/menu_repository.ts.tmp"  ],
   "exclude": ["node_modules"]
 }
