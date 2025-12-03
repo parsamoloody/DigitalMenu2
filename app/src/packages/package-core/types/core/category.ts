@@ -3,11 +3,12 @@ import { UpdateCommonUsecase } from '../in-use/common';
 import { Timestamps, BaseEntity, AuthorSignature } from '../in-use/shared';
 
 export interface CategoryBasicProps {
-    title: string;
-    picture: string;
+    name: string;
+    thumNail: string;
+    menuId: string
 }
 
-export interface CategoryProps extends CategoryBasicProps, BaseEntity, Timestamps, AuthorSignature { }
+export interface CategoryProps extends CategoryBasicProps, BaseEntity{ }
 
 export interface CategoryCreateInput extends CategoryProps, UpdateCommonUsecase, BaseEntity { }
 

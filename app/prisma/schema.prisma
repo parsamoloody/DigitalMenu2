@@ -16,48 +16,35 @@ model User {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  // Relations
-  // menus     Menu[]
 }
 
 model Menu {
   id          String      @id @default(cuid())
   displayId   String      @unique
   name        String
+  userId        String
   subname     String?
   avatar      String?
   bio         String?
   connections Json?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-
-  // Relations
-  // user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  categories  String[]
 }
 
 model Category {
   id        String      @id @default(cuid())
   menuId    String
   name      String
+  thumNail      String
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-
-  // Relations
-  // menu      Menu        @relation(fields: [menuId], references: [id], onDelete: Cascade)
-  products  Product[]
 }
 
 model Product {
   id          String      @id @default(cuid())
-  categoryId  String
   title       String
   description String
   price       Float
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-
-  // Relations
-  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
