@@ -15,7 +15,6 @@ export class Menu {
     get bio() { return this.props.bio; }
     get connections() { return this.props.connections; }
     get displayId() { return this.props.displayId; }
-    get categories() { return this.props.categories }
     get createdAt() { return this.props.createdAt; }
     get updatedAt() { return this.props.updatedAt; }
     // get updatedBy() { return this.props.updatedBy; }

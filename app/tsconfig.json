@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/packages/types/*": ["./src/package-core/types/*"]
+      "@/packages/types/*": ["./src/package-core/types/*"],
+      "@/providers/*": ["./src/providers/*"]
     }
   },
   "include": [

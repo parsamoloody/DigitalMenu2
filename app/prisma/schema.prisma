@@ -35,7 +35,7 @@ model Category {
   id        String      @id @default(cuid())
   menuId    String
   name      String
-  thumNail      String
+  thumNail  String
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 }

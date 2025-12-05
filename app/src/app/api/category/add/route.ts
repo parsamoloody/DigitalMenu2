@@ -12,10 +12,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Name and menuId are required" }, { status: 400 });
     }
 
-    // const currentUser = await getCurrentUser();
-    // if (!currentUser) {
-    //   return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
-    // }
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+    }
 
     const categoryRepository = new DatabasecategoryRepository(prisma);
     const addCategoryUseCase = new CreateCategoryUseCase(categoryRepository);

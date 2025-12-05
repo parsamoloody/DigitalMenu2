@@ -8,10 +8,10 @@ import { getCurrentUser } from "@/packages/lib/prisma/auth/aw-auth";
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as Partial<MenuBasicProps>;
-    const { displayId, name, categories } = body;
+    const { displayId, name } = body;
 
     // Validate required fields
-    if (!displayId || !name || !categories) {
+    if (!displayId || !name) {
       return NextResponse.json(
         { success: false, message: "Invalid displayId, name or categories" },
         { status: 400 }
@@ -39,9 +39,9 @@ export async function POST(req: NextRequest) {
       subname: body.subname,
       avatar: body.avatar,
       bio: body.bio,
-      connections: body.connections
-        ? JSON.stringify(body.connections)
-        : undefined,
+      // connections: body.connections
+      //   ? JSON.stringify(body.connections)
+      //   : undefined,
     };
 
     // Execute use case

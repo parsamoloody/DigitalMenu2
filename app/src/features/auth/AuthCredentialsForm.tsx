@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Flex } from '@radix-ui/themes'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import { notFound, useRouter } from 'next/navigation'
 
 import AuthTabs from './AuthTabs'
 import useSignUpMutation from './hooks/useSignUpMutation'
@@ -13,8 +13,7 @@ import { StyleButton } from '@/components'
 import { Div, P, Span } from './style'
 import StyleInput from './StyleInput'
 import { EmailIcon, PasswordIcon, UserIcon } from '@/utils/icons'
-
-
+import { useCurrentUser } from '@/providers/UserProvider'
 
 
 const AuthCredentialsForm = () => {
@@ -39,7 +38,7 @@ const handleLogin = (data: FormData) => {
         {
             onSuccess: () => {
                 reset()
-                // router.push('/')
+                router.push('/')
             }
         }
     )
@@ -47,12 +46,15 @@ const handleLogin = (data: FormData) => {
 
 // signup
 const handleSignup = (data: FormData) => {
+  // const currentUser = useCurrentUser();
+  // if(!currentUser) return notFound()
     signUpMutation(
         { name: data.name, email: data.email, password: data.password },
         {
-            onSuccess: () => {
+            onSuccess: (rers) => {
+              console.log("response", rers.data.user.props.id)
                 reset()
-                router.push('/')
+                router.push(`/get-start/${rers.data.user.props.id}`)
             }
         }
     )

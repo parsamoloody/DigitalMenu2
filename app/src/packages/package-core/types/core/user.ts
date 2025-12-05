@@ -1,7 +1,7 @@
 // user
 import { Timestamps, BaseEntity, AuthorSignature } from '../in-use/shared';
 
-export interface UserProps extends Partial<BaseEntity>, Partial<Timestamps>{
+export interface UserProps extends Partial<BaseEntity>{
   email: string;
   password: string;
   name: string;
