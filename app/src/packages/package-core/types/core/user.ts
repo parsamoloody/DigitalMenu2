@@ -5,6 +5,7 @@ export interface UserProps extends Partial<BaseEntity>{
   email: string;
   password: string;
   name: string;
+  avatar: string;
 }
 
 export interface UserCreateInput {

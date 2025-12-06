@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import QueryProvider from "@/providers/QueryProvider";
 import { UserProvider } from "@/providers/UserProvider";
 import { getCurrentUser } from "@/packages/lib/prisma/auth/aw-auth";
+import NavBar from "@/components/navbar/navbar";
 
 
 const iransans = localFont({
@@ -32,6 +33,7 @@ export default async function RootLayout({
         <UserProvider currentUser={currentUser}>
           <QueryProvider>
            <Theme>
+              <NavBar/>
             <main>
             {children}
            </main>

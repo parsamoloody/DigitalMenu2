@@ -36,9 +36,9 @@ const handleLogin = (data: FormData) => {
     loginMutation(
         { email: data.email, password: data.password },
         {
-            onSuccess: () => {
+            onSuccess: (res) => {
                 reset()
-                router.push('/')
+                router.push(`/dashboard/${res.data.user.props.id}`)
             }
         }
     )

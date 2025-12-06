@@ -1,7 +1,5 @@
 # Digital Menu
 
-# Digital Menu
-
 A modern **Digital Menu Management System** built for restaurant owners. Create, customize, and manage beautiful digital menus with secure authentication — all in one place.
 
 This project follows **Hexagonal Architecture (Ports & Adapters)** to ensure clean separation of concerns, high testability, and easy swapping of infrastructure (e.g., databases, auth providers).
@@ -25,20 +23,6 @@ This project follows **Hexagonal Architecture (Ports & Adapters)** to ensure cle
 | Password Hashing   | bcryptjs                            |
 | Architecture       | Hexagonal (Ports & Adapters)        |
 
-
-## Table of Contents
-- [Digital Menu](#digital-menu)
-- [Digital Menu](#digital-menu-1)
-  - [Features](#features)
-  - [Tech Stack](#tech-stack)
-  - [Table of Contents](#table-of-contents)
-  - [Project Overview](#project-overview)
-  - [Tech Stack](#tech-stack-1)
-  - [Setup Instructions](#setup-instructions)
-    - [Read – Get One Menu](#read--get-one-menu)
-    - [Read – List All Menus](#read--list-all-menus)
-    - [Update a Menu](#update-a-menu)
-    - [Delete a Menu](#delete-a-menu)
 
 ## Project Overview
 This application enables restaurant owners to create and manage digital menus for their establishments. Users can sign up, log in, and build customized menus with items, prices, and descriptions. The authentication system ensures secure access to menu management features. The codebase follows a clean architecture pattern with:
@@ -83,7 +67,7 @@ To contribute to this project, follow these steps:
    npm run dev
 
 ## Setup Instructions
-### Signup API
+## Signup API
 
 - Endpoint: POST `/api/auth/signup`
 Description: Registers a new user a JWT token stored in a cookie.
@@ -151,6 +135,44 @@ Description: Registers a new user a JWT token stored in a cookie.
     "message": "user not found"
     }
     ```
+### create/menu API
+- Endpoint: POST `/api/menu/craete`
+
+- **Request Body:**
+   ```bash
+      {
+    "displayId": "shekamoo_220",
+    "name": "Italian Food Menu",
+    "subname": "Authentic Italian Cuisine",
+    "avatar": "https://example.com/menu-avatar.jpg",
+    "bio": "A collection of traditional and modern Italian dishes."
+     }
+
+- **Error (400/404/500):**
+   ```bash
+     {
+    "success": false,
+    "message": "user not found"
+    }
+    ```
+### create/category API
+- Endpoint: POST `/api/category/craete`
+
+- **Request Body:**
+   ```bash
+      {
+    "name": "Pizza",
+    "menuId": "your_menu_id",
+    "thumNail": "https://example.com/pizza.jpg"
+  }
+
+- **Error (400/401/404/500):**
+   ```bash
+     {
+    "success": false,
+    "message": "Unauthorized"
+    }
+    ```
     ## Menu Management (CRUD Examples)
     ### create menu
     example of crate menu
@@ -167,7 +189,6 @@ Description: Registers a new user a JWT token stored in a cookie.
    subname: "Shekamooo", // English
    avatar: "https://i.imgur.com/zBsQPCb_d.webp?maxwidth=520&shape=thumb&fidelity=high",
    bio: "Welcome to our delicious menu!",
-   categories: ["cmij4jihi0008uujstkda5j85", "lkoopjihiu666uujstkd85y21"],
    connections: {
     socialMedias: {
       instagram: "bellaitalia_restaurant",

@@ -13,10 +13,16 @@ import {
   Avatar,
 } from "@mui/material";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useCurrentUser } from "@/providers/UserProvider";
 
 const steps = ["نام منو", "توضیحات", "آواتار"];
 
 export default function MenuCreateStepper() {
+  const router = useRouter();
+  const currentUser = useCurrentUser();
+  console.log("current user in start",currentUser)
+
   const [activeStep, setActiveStep] = useState(0);
   const [form, setForm] = useState({
     name: "",
@@ -24,22 +30,29 @@ export default function MenuCreateStepper() {
     bio: "",
     avatar: "",
   });
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleNext = () => {
-    if (activeStep === steps.length - 1) {
-      submitForm(); // if last step
-    } else {
-      setActiveStep(activeStep + 1);
+  //--------------------------------
+  // VALIDATIONS FOR EACH STEP
+  //--------------------------------
+  const validateStep = () => {
+    if (activeStep === 0) {
+      return form.name.trim() !== "" && form.subname.trim() !== "";
     }
+    if (activeStep === 1) {
+      return form.bio.trim() !== "";
+    }
+    if (activeStep === 2) {
+      return form.avatar.trim() !== "";
+    }
+    return false;
   };
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
-  // Generate displayId
+  //--------------------------------
+  // GENERATE DISPLAY-ID
+  //--------------------------------
   const generateDisplayId = (subname: string) => {
     const clean = subname
       .toLowerCase()
@@ -49,22 +62,54 @@ export default function MenuCreateStepper() {
     return `${clean}-${random}`;
   };
 
+  //--------------------------------
+  // SUBMIT FORM
+  //--------------------------------
   const submitForm = async () => {
-    setLoading(true);
-
     try {
+      setLoading(true);
+
       await axios.post("/api/menu/add", {
         displayId: generateDisplayId(form.subname),
         ...form,
       });
 
+      setLoading(false);
       setSuccess(true);
+
+      // redirect after 1 sec
+      setTimeout(() => {
+        router.push(`/dashboard/${currentUser?.id}`);
+      }, 1000);
+
     } catch (err) {
+      setLoading(false);
       alert("خطا در ساخت منو");
     }
-
-    setLoading(false);
   };
+
+  //--------------------------------
+  // HANDLE NEXT
+  //--------------------------------
+  const handleNext = () => {
+    if (!validateStep()) {
+      alert("لطفاً اطلاعات این مرحله را کامل کنید.");
+      return;
+    }
+
+    // last step → submit
+    if (activeStep === steps.length - 1) {
+      submitForm();
+    } else {
+      setActiveStep(activeStep + 1);
+    }
+  };
+
+  const handleBack = () => setActiveStep(activeStep - 1);
+
+  //--------------------------------
+  // RENDER
+  //--------------------------------
 
   return (
     <Box
@@ -85,12 +130,12 @@ export default function MenuCreateStepper() {
         ))}
       </Stepper>
 
-      {/* FORM CONTENT */}
+      {/* FORM */}
       <Box sx={{ mt: 4 }}>
         {success ? (
           <Box sx={{ textAlign: "center", mt: 4 }}>
             <Typography variant="h5" color="green">
-              منو با موفقیت ساخته شد 
+              منو با موفقیت ساخته شد
             </Typography>
           </Box>
         ) : loading ? (
@@ -100,25 +145,23 @@ export default function MenuCreateStepper() {
           </Box>
         ) : (
           <>
+            {/* STEP 1 */}
             {activeStep === 0 && (
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <TextField
                   label="نام منو"
                   value={form.name}
-                  onChange={(e) =>
-                    setForm({ ...form, name: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
                 />
                 <TextField
                   label="نام انگلیسی (subname)"
                   value={form.subname}
-                  onChange={(e) =>
-                    setForm({ ...form, subname: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, subname: e.target.value })}
                 />
               </Box>
             )}
 
+            {/* STEP 2 */}
             {activeStep === 1 && (
               <TextField
                 multiline
@@ -130,6 +173,7 @@ export default function MenuCreateStepper() {
               />
             )}
 
+            {/* STEP 3 */}
             {activeStep === 2 && (
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <TextField
@@ -172,6 +216,9 @@ export default function MenuCreateStepper() {
           </>
         )}
       </Box>
+      <Button
+      onClick={() => router.push(`/dashboard/${currentUser?.id}`)}
+       variant="outlined" sx={{mt:5}}>صرف نظر</Button>
     </Box>
   );
 }

@@ -34,7 +34,7 @@ export async function getCurrentUser() {
       email: user.email,
       name: user.name,
       avatar: (user as any).avatar ?? null,
-    } as any;
+    } as UserProps;
   } catch (err) {
     return null; // invalid token, expired, etc.
   }
