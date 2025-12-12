@@ -1,53 +1,51 @@
 # Digital Menu
 
-A modern **Digital Menu Management System** built for restaurant owners. Create, customize, and manage beautiful digital menus with secure authentication — all in one place.
-
+A modern **Digital Menu Management System** built for restaurant, coffe shop owners. Create, customize, and manage beautiful digital menus with secure authentication — all in one place.
 This project follows **Hexagonal Architecture (Ports & Adapters)** to ensure clean separation of concerns, high testability, and easy swapping of infrastructure (e.g., databases, auth providers).
 
 ## Features
 - User authentication (Signup / Login) with JWT
 - Secure password hashing using `bcryptjs`
-- Full CRUD operations for Menus
-- Unique `displayId` validation
+- Full CRUD operations for Menus/Category/User/Product
 - Clean, scalable architecture using Hexagonal pattern
 - Prisma ORM with PostgreSQL support
 - Type-safe TypeScript implementation
 
 ## Tech Stack
-| Layer              | Technology                          |
-|--------------------|-------------------------------------|
-| Framework          | Next.js (App Router + API Routes)   |
-| Language           | TypeScript                          |
-| Database           | PostgreSQL + Prisma ORM             |
-| Authentication     | JWT + HTTP-only cookies             |
-| Password Hashing   | bcryptjs                            |
-| Architecture       | Hexagonal (Ports & Adapters)        |
+
+| Layer              | Technology                          |  |
+|--------------------|--------------------------------------|------|
+| Framework          | Next.js (App Router + API Routes)    |  <img src="https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png" width="130" /> |
+| Language           | TypeScript                           | <img src="https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png" width="130" /> |
+| Database           | PostgreSQL + Prisma ORM              | <img src="https://www.postgresql.org/media/img/about/press/elephant.png" width="130" /> |
+| Authentication     | JWT + HTTP-only cookies              | <img src="https://jwt.io/img/pic_logo.svg" width="130" /> |
+| Password Hashing   | bcryptjs                             | <img src="https://img.icons8.com/ios-filled/50/lock.png" width="100" /> |
+| Architecture       | Hexagonal (Ports & Adapters)         | <img src="https://img.icons8.com/ios-filled/50/hexagon.png" width="130" /> |
 
 
-## Project Overview
-This application enables restaurant owners to create and manage digital menus for their establishments. Users can sign up, log in, and build customized menus with items, prices, and descriptions. The authentication system ensures secure access to menu management features. The codebase follows a clean architecture pattern with:
-- **Business logic**: still not completed.
-
-## Tech Stack
 - **Next.js**: Framework for API routes and server-side logic.
 - **Prisma**: ORM for database operations.
 - **bcryptjs**: For password hashing.
 - **jsonwebtoken**: For generating and verifying JWTs.
 - **PostgreSQL**: Supported databases via Prisma (configure in `schema.prisma`).
+- **Hexagonal Architecture (Ports & Adapters)**: Ensures clean separation between core business logic and external systems such as database, APIs, and UI.
 
 ## Setup Instructions
 To contribute to this project, follow these steps:
 
 1. **Clone the Repository**:
+  Clone the repository and navigate to the `app` directory, which is the root of the server application:
    ```bash
    git clone https://github.com/LightHunters/DigitalMenu2.git
    cd DigitalMenu2/app
 
 2. **Install Dependencies:**:
+   install all dependencies
    ```bash
    npm install
 
-3. **Set Up Environment Variables::**:
+3. **Set Up Environment Variables**:
+   Create a `.env` file in the `app/` directory and add the following environment variables with your configuration:
    ```bash
    DATABASE_URL="your-database-connection-string"
    JWT_SECRET="your-jwt-secret-key"
@@ -67,20 +65,22 @@ To contribute to this project, follow these steps:
    npm run dev
 
 ## Setup Instructions
-## Signup API
+------
+## User Auth API
+## Signup
 
 - Endpoint: POST `/api/auth/signup`
 Description: Registers a new user a JWT token stored in a cookie.
 
 - **Request Body:**
-   ```bash
+   ```json
     {
     "name": "string",
     "email": "string",
     "password": "string"
     }
 - **Response 200:**
-   ```bash
+   ```json
     {
   "success": true,
   "data": {
@@ -96,24 +96,23 @@ Description: Registers a new user a JWT token stored in a cookie.
     }
 
 - **Error (400/500):**
-   ```bash
+   ```json
    {
   "success": false,
   "error": "User already exists"
   }
-
-### Login API
+### Login
 - Endpoint: POST `/api/auth/login`
 - Description: Authenticates a user (e.g., a restaurant owner) and returns a JWT token stored in a cookie.
 
 - **Request Body:**
-   ```bash
+   ```json
     {
     "email": "string",
     "password": "string"
     }
 - **Response 200:**
-   ```bash
+   ```json
     {
   "success": true,
   "data": {
@@ -129,17 +128,19 @@ Description: Registers a new user a JWT token stored in a cookie.
      }
 
 - **Error (400/404/500):**
-   ```bash
+   ```json
      {
     "success": false,
     "message": "user not found"
     }
     ```
-### create/menu API
+## Menu API
+### create menu
 - Endpoint: POST `/api/menu/craete`
+- Description: Creates a new menu document for a user.
 
 - **Request Body:**
-   ```bash
+   ```json
       {
     "displayId": "shekamoo_220",
     "name": "Italian Food Menu",
@@ -147,37 +148,180 @@ Description: Registers a new user a JWT token stored in a cookie.
     "avatar": "https://example.com/menu-avatar.jpg",
     "bio": "A collection of traditional and modern Italian dishes."
      }
-
+    ```
+    
 - **Error (400/404/500):**
-   ```bash
+   ```json
      {
     "success": false,
     "message": "user not found"
     }
     ```
-### create/category API
+### fetch list menus
+- Endpoint: GET `/api/menu/list`
+- Description: Retrieves a list of all menus.
+    
+- **Response 200:**
+   ```json
+     {
+  "success": true,
+  "data": [
+    {
+      "props": {
+        "id": "cmiyo3jd40001uu58d90l9pfp",
+        "displayId": "starbox1-726o",
+        "name": "starbox",
+        "userId": "cmiyo2zm80000uu58mv8hfy3k",
+        "subname": "starbox1",
+        "avatar": "https://digifycdn.com/media/item_images/LOGO_E9OxALA.jpg",
+        "bio": "dggdfg",
+        "connections": null,
+        "createdAt": "2025-12-09T14:20:17.993Z",
+        "updatedAt": "2025-12-09T14:20:17.993Z"
+      }
+    },
+    {
+      "props": {
+        "id": "cmj2g4okr0002uu24fx4hbllm",
+        "displayId": "yg8goi-2d12",
+        "name": "kjnjnjlk",
+        "userId": "cmj2g3n6m0001uu241vdpgj4z",
+        "subname": "yg8goi",
+        "avatar": "https://cdn.topmenumarket.com/storage/category/4456/conversions/thumbnail/image_118499651-thumbnail.webp",
+        "bio": "ihyouihoui",
+        "connections": null,
+        "createdAt": "2025-12-12T05:48:19.179Z",
+        "updatedAt": "2025-12-12T05:48:19.179Z"
+      }
+    },
+  ]
+  }
+### fetch a menu by id
+- Endpoint: GET `/api/menu/find-by-id/cmiyo3jd40001uu58d90l9pfp`
+- Description: Fetches a single menu record using the provided menu id.
+    
+- **Response 200:**
+   ```json
+     {
+  "success": true,
+  "data": {
+    "props": {
+      "id": "cmiyo3jd40001uu58d90l9pfp",
+      "displayId": "starbox1-726o",
+      "name": "starbox",
+      "userId": "cmiyo2zm80000uu58mv8hfy3k",
+      "subname": "starbox1",
+      "avatar": "https://digifycdn.com/media/item_images/LOGO_E9OxALA.jpg",
+      "bio": "dggdfg",
+      "connections": null,
+      "createdAt": "2025-12-09T14:20:17.993Z",
+      "updatedAt": "2025-12-09T14:20:17.993Z"
+    }
+  }
+  }
+
+## Category API
+## create category
 - Endpoint: POST `/api/category/craete`
+- Description: Creates a new category document for a menu .
 
 - **Request Body:**
-   ```bash
+   ```json
       {
     "name": "Pizza",
     "menuId": "your_menu_id",
-    "thumNail": "https://example.com/pizza.jpg"
-  }
+    "iamge": "https://example.com/pizza.jpg"
+      }
 
 - **Error (400/401/404/500):**
-   ```bash
+   ```json
+     {
+    "success": false,
+    "message": "Unauthorized"
+     }
+
+### list all items of a category
+- Endpoint: GET `/api/category/list`
+- Description: Fetches all category records associated with the menu.
+
+- **Response 200:**
+   ```json
+      {
+  "success": true,
+  "data": [
+    {
+      "id": "cmiyo3uc80002uu58e28vh3i5",
+      "menuId": "cmiyo2zm80000uu58mv8hfy3k",
+      "name": "fsfsd",
+      "image": "https://digifycdn.com/media/item_images/LOGO_E9OxALA.jpg",
+      "createdAt": "2025-12-09T14:20:32.216Z",
+      "updatedAt": "2025-12-09T14:20:32.216Z"
+    },
+    {
+      "id": "cmiyoht6k0003uu58n7an71d3",
+      "menuId": "cmiyo2zm80000uu58mv8hfy3k",
+      "name": "this is a category",
+      "image": "https://api2.zoomit.ir/media/2017-6-bb0a4b24-020b-4d7d-b3fe-bd39fc7752b6-638ba00ec078cd552de5ebf9?w=1920&q=80",
+      "createdAt": "2025-12-09T14:31:23.900Z",
+      "updatedAt": "2025-12-09T14:31:23.900Z"
+    }
+  ]
+      }
+
+- **Error (400/401/404/500):**
+   ```json
      {
     "success": false,
     "message": "Unauthorized"
     }
-    ```
-    ## Menu Management (CRUD Examples)
+
+### Delete an item of a category
+- Endpoint: DELETE `/api/category/delete`
+- Description: Deletes a category by its ID.
+
+- **Request Body:**
+  ```json
+    {
+    "id": "cmiypoxyc0004uu58g4bcpncc"
+    }
+
+- **Error (400/401/404/500):**
+   ```json
+     {
+    "success": false,
+    "message": "Unauthorized"
+    }
+    
+### Update an item of Category
+- Endpoint: PATCH `/api/category/update`
+- Description: Updates a category by providing partial fields to modify.
+
+- **Request Body:**
+  ```json
+    {
+  "id": "cmiyo3uc80002uu58e28vh3i5",
+  "changes": {
+    "name": "New Category Name",
+    "image": "https://new-image-url.com/img.jpg",
+  }
+   }
+  ```
+
+- **Error (400/401/404/500):**
+   ```json
+     {
+    "success": false,
+    "message": "Unauthorized"
+    }
+  ```
+
+
+    ## Menu Management (Examples)
     ### create menu
     example of crate menu
     ```javascript
-    const menuRepo = new MenuDatabaseMenuRepository(prisma);
+    // 1. Create the database repository
+  const menuRepo = new MenuDatabaseMenuRepository(prisma);
 
    // 2. Create the use case
    const createMenu = new CreateMenuUseCase(menuRepo);
@@ -214,41 +358,44 @@ Description: Registers a new user a JWT token stored in a cookie.
    });
    ```
 
-### Read – Get One Menu
-```js
-const findMenu = new FindMenuByIdUseCase(menuRepo);
-const menu = await findMenu.execute("menu-id-here");
+    ### Read – Get One Menu
+    ```js
+    const menuRepo = new MenuDatabaseMenuRepository(prisma);
+    const findMenu = new FindMenuByIdUseCase(menuRepo);
+    const menu = await findMenu.execute("menu-id-here");
 
-if (menu) console.log("Found:", menu.name, menu.connections?.location);
-```
-### Read – List All Menus
-```js
-const listMenus = new ListMenusUseCase(menuRepo);
-const allMenus = await listMenus.execute();
+    if (menu) console.log("Found:", menu.name, menu.connections?.location);
+    ```
+    ### Read – List All Menus
+    ```js
+    const menuRepo = new MenuDatabaseMenuRepository(prisma);
+    const listMenus = new ListMenusUseCase(menuRepo);
+    const allMenus = await listMenus.execute();
 
-allMenus.forEach(m => {
-  console.log(`${m.name} → ${m.displayId}`);
-});
-```
-### Update a Menu
-```js
-const updateMenu = new UpdateMenuUseCase(menuRepo);
+    allMenus.forEach(m => {
+    console.log(`${m.name} → ${m.displayId}`);
+    });
+    ```
 
-await updateMenu.execute("menu-id-here", {
-  bio: "Now serving gluten-free options!",
-  "connections.openTimes": [
-    { day: "Wednesday", open: "17:00", close: "22:00" } // Now open on Wednesday!
-  ],
-  "connections.contacts": [
-    { type: "whatsapp", value: "+15559876543" }
-  ]
-});
-```
+## Contributors
 
-### Delete a Menu
-```js
-const deleteMenu = new DeleteMenuUseCase(menuRepo);
-await deleteMenu.execute("menu-id-to-remove");
+<table>
+<tr>
+  <td align="center">
+    <a href="https://github.com/elliotWoas">
+      <img src="https://avatars.githubusercontent.com/u/106772247?v=4" width="80px" style="border-radius:50%" />
+    </a>
+  </td>
+  <td align="center">
+    <a href="https://github.com/parsamoloody">
+      <img src="https://avatars.githubusercontent.com/u/152327686?s=400&u=eb64df54e3bb550335aa0f9986f158a0ce78a26a&v=4" width="80px" style="border-radius:50%" />
+    </a>
+  </td>
+  <td align="center">
+    <a href="https://github.com/lhaniyehamiril">
+      <img src="http://avatars.githubusercontent.com/u/215504753?v=4" width="80px" style="border-radius:50%" />
+    </a>
+  </td>
+</tr>
+</table>
 
-console.log("Menu deleted successfully");
-```
