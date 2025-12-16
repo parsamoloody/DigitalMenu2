@@ -4,13 +4,14 @@ import { MenuDatabaseMenuRepository } from "@/packages/package-core/core/infrast
 import { ListMenusUseCase } from "@/packages/package-core/core/use-cases/menu/list_menu_use_case";
 
 export async function GET(req: NextRequest) {
-    try {
+    try {  
 
         const menuRepository = new MenuDatabaseMenuRepository(prisma);
         const menuUseCase = new ListMenusUseCase(menuRepository);
 
         const result = await menuUseCase.execute();
 
+  
         return NextResponse.json(
             { success: true, data: result },
             { status: 200 }

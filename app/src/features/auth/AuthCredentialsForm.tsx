@@ -9,11 +9,13 @@ import useSignUpMutation from './hooks/useSignUpMutation'
 import useLoginMutation from './hooks/useLoginMutation'
 
 import { FormData } from './types'
-import { StyleButton } from '@/components'
-import { Div, P, Span } from './style'
-import StyleInput from './StyleInput'
+
+import Input from './Input'
 import { EmailIcon, PasswordIcon, UserIcon } from '@/utils/icons'
 import { useCurrentUser } from '@/providers/UserProvider'
+import { Div, P, Span } from '@/components/style'
+import { Button } from '@mui/material'
+
 
 
 const AuthCredentialsForm = () => {
@@ -72,7 +74,7 @@ const handleSignup = (data: FormData) => {
 
 
   return (
-    <Flex justify='center' align='center' direction="column" className='h-[86vh]'>
+    <Flex justify='center' align='center' direction="column" className='h-[70vh]'>
 
       <AuthTabs tab={tab} setTab={setTab} />
         
@@ -94,7 +96,7 @@ const handleSignup = (data: FormData) => {
          >
             {!isLogin && 
             <Div>
-             <StyleInput type='text' placeholder='نام' 
+             <Input type='text' placeholder='نام' 
                register={register('name', {required: "نام"})}
                error={errors.name?.message}
              />
@@ -107,7 +109,7 @@ const handleSignup = (data: FormData) => {
            
 
           <Div> 
-            <StyleInput type='email' placeholder='ایمیل' 
+            <Input type='email' placeholder='ایمیل' 
              register={register('email', {required: "ایمیل"})}
              error={errors.email?.message}
             /> 
@@ -119,7 +121,7 @@ const handleSignup = (data: FormData) => {
             
            
           <Div>
-            <StyleInput type='password' placeholder='رمز' 
+            <Input type='password' placeholder='رمز' 
               register={register('password', {required: "رمز"})}
               error={errors.password?.message}
               /> 
@@ -131,12 +133,12 @@ const handleSignup = (data: FormData) => {
         </Flex>
 
          {isLogin && 
-         <div className='bg-white rounded-full mt-2 hover:bg-red-100 cursor-pointer -mr-4 shadow-white shadow-lg w-30 text-center'>
+         <div className='bg-white rounded-full mt-2 shrink-0 hover:bg-red-100 cursor-pointer min-[350px]:mr-4 shadow-white shadow-lg w-30 text-center'>
             <span className='text-[12px] text-red-400'>رمزو فراموش کردید</span>
           </div>
           }
           
-        <StyleButton className='mt-5 mr-1 bg-[var(--main-black-color)] duration-200 hover:w-[71%] w-[70%]'> {isLogin ? 'ورود' : 'ثبت نام'} </StyleButton>
+         <Button className={`p-1.5! mt-4! min-[350px]:-translate-x-3 rounded-xl! px-8!  shrink-0 w-[70%]`} variant="contained" size='small' color='secondary'> {isLogin ? 'ورود' : 'ثبت نام'} </Button>
 
       </form>
     </Flex>

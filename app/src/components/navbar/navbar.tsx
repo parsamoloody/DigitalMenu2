@@ -12,14 +12,17 @@ import {
   Typography,
   Button
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { TiThMenu } from "react-icons/ti";
 import { useCurrentUser } from "@/providers/UserProvider";
 import { getCurrentMenu } from "@/packages/lib/prisma/auth/menu-auth.ts";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function MainMenu() {
   const [open, setOpen] = useState(false);
   const [currentMenuId, setCurrentMenuId] = useState<null | string>(null)
   const currentUser = useCurrentUser();
+  const pahtname = usePathname()
+  
   // console.log('current user id', currentMenuId)
   // if(!currentUser) return notFound();
   const toggle = () => setOpen(!open);
@@ -35,12 +38,19 @@ export default function MainMenu() {
     }
     fetchMenu();
   })
+  
+  // dont show navbar on menu detail page
+  if(pahtname.startsWith("/menu/")) return null
+
 
   return (
     <>
-      <IconButton onClick={toggle}>
-        <MenuIcon />
-      </IconButton>
+      
+        <IconButton onClick={toggle} className={`p-5!`}>
+          <TiThMenu />
+        </IconButton>
+      
+
 
       <Drawer anchor="left" open={open} onClose={toggle}>
         <Box sx={{ width: 260, p: 2 }}>

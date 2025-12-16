@@ -1,19 +1,9 @@
 'use client'
-import tw from "tailwind-styled-components"
 
 import { UserIcon } from "@/utils/icons";
 import { AuthTabsProps } from "./types";
+import { StyleButton } from "@/components/style";
 
-
-
-const StyleButton = tw.button<{$isactive : boolean}> `
-  py-2 w-28 rounded-[1.1rem] text-center  
-  
-  ${(p) => p.$isactive 
-    ? 'bg-[var(--main-black-color)] text-white font-semibold'
-    : 'bg-[#eee] ' 
-  }
-`;
 
 
 
@@ -25,7 +15,7 @@ const AuthTabs = ({tab, setTab}: AuthTabsProps) => {
                 <UserIcon size="42" />
             </div>
            
-           <StyleButton 
+           <StyleButton
                className="-translate-x-5 "
                onClick={() => setTab('login')}
                $isactive={tab === 'login'}

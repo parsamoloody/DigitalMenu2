@@ -2,9 +2,32 @@
 
 
 @theme inline {
-  --font-iransanse: var(--font-iransanse);
+  --font-ravi: var(--font-ravi);
 }
 
 @theme {
   --main-black-color: #444
 }
+
+.custom-scroll::-webkit-scrollbar {
+  width: 7px;
+  height: 3px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #bababaa1;
+  border-radius: 2rem;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  margin: 1rem 1rem;
+}
+
+.scroll-hidden::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  height: 0;
+  width: 2px;
+}
+

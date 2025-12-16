@@ -1,5 +1,6 @@
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
+import { ThemeProvider } from '@mui/material/styles';
 import { Theme } from "@radix-ui/themes";
 import localFont from 'next/font/local'
 import type { Metadata } from "next";
@@ -7,11 +8,12 @@ import QueryProvider from "@/providers/QueryProvider";
 import { UserProvider } from "@/providers/UserProvider";
 import { getCurrentUser } from "@/packages/lib/prisma/auth/aw-auth";
 import NavBar from "@/components/navbar/navbar";
+import theme from "@/theme/theme";
 
 
-const iransans = localFont({
-  src:'../../public/fonts/iransans.ttf' ,
-  variable: '--font-iransans'
+const ravi = localFont({
+  src:'../../public/fonts/ravi.ttf' ,
+  variable: '--font-ravi'
 })
 
 export const metadata: Metadata = {
@@ -28,15 +30,17 @@ export default async function RootLayout({
   return (
     <html lang="fa" dir="rtl" >
       <body
-        className={`${iransans.variable} antialiased`}
+        className={`${ravi.variable} text-[#444] antialiased`}
       >
         <UserProvider currentUser={currentUser}>
           <QueryProvider>
            <Theme>
+            <ThemeProvider theme={theme}>
               <NavBar/>
-            <main>
-            {children}
-           </main>
+              <main className="min-h-screen font-ravi">
+               {children}
+             </main>
+           </ThemeProvider>
           </Theme>
         </QueryProvider>
         </UserProvider>
