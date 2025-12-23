@@ -138,7 +138,7 @@ const handleSignup = (data: FormData) => {
           </div>
           }
           
-         <Button className={`p-1.5! mt-4! min-[350px]:-translate-x-3 rounded-xl! px-8!  shrink-0 w-[70%]`} variant="contained" size='small' color='secondary'> {isLogin ? 'ورود' : 'ثبت نام'} </Button>
+         <Button type="submit" className={`p-1.5! mt-4! min-[350px]:-translate-x-3 rounded-xl! px-8!  shrink-0 w-[70%]`} variant="contained" size='small' color='secondary'> {isLogin ? 'ورود' : 'ثبت نام'} </Button>
 
       </form>
     </Flex>

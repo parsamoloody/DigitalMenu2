@@ -7,6 +7,7 @@ export class FindMenuByUserIdUseCase {
     async execute(userId: string): Promise<Menu | null> {
         if (!this.menuRepository.findByField) return null;
         const menu = await this.menuRepository.findByField('userId', userId);
-        return menu ? new Menu(menu[0]) : null;
+        if (!menu || menu.length === 0) return null;
+        return new Menu(menu[0]);
     }
 }
