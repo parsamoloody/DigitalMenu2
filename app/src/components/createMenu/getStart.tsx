@@ -15,6 +15,10 @@ import {
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCurrentUser } from "@/providers/UserProvider";
+import StyleInput from "../ui/StyleInput";
+import { toast } from "sonner";
+import { Flex } from "@radix-ui/themes";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 const steps = ["نام منو", "توضیحات", "آواتار"];
 
@@ -84,7 +88,7 @@ export default function MenuCreateStepper() {
 
     } catch (err) {
       setLoading(false);
-      alert("خطا در ساخت منو");
+      toast.error("خطا در ساخت منو");
     }
   };
 
@@ -93,7 +97,7 @@ export default function MenuCreateStepper() {
   //--------------------------------
   const handleNext = () => {
     if (!validateStep()) {
-      alert("لطفاً اطلاعات این مرحله را کامل کنید.");
+      toast.error("لطفا کامل کنید")
       return;
     }
 
@@ -113,19 +117,21 @@ export default function MenuCreateStepper() {
 
   return (
     <Box
+      className={`bg-[#eee] max-[390px]:w-[90%]! rounded-[1.2rem] p-6`}
       sx={{
-        maxWidth: "500px",
+        maxWidth: "330px",
         mx: "auto",
         mt: 5,
         direction: "rtl",
         textAlign: "right",
       }}
+
     >
       {/* STEPPER */}
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper className={`translate-x-[25px]!`} activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel sx={{'& .MuiStepLabel-label': {fontSize: '12px',},}} >{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
@@ -134,26 +140,26 @@ export default function MenuCreateStepper() {
       <Box sx={{ mt: 4 }}>
         {success ? (
           <Box sx={{ textAlign: "center", mt: 4 }}>
-            <Typography variant="h5" color="green">
-              منو با موفقیت ساخته شد
-            </Typography>
+            <Flex justify="center" align="center" className="ml-4">
+              <IoIosCheckmarkCircle  color="#99cf88" size={50}/>
+            </Flex>
           </Box>
         ) : loading ? (
-          <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Box sx={{ textAlign: "center", mt: 4}}>
             <CircularProgress />
-            <Typography sx={{ mt: 2 }}>در حال ساخت منو...</Typography>
+            <Typography className={`text-[13px]! mt-2!`}>در حال ساخت منو...</Typography>
           </Box>
         ) : (
           <>
             {/* STEP 1 */}
             {activeStep === 0 && (
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <TextField
+                <StyleInput
                   label="نام منو"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                 />
-                <TextField
+                <StyleInput
                   label="نام انگلیسی (subname)"
                   value={form.subname}
                   onChange={(e) => setForm({ ...form, subname: e.target.value })}
@@ -164,6 +170,7 @@ export default function MenuCreateStepper() {
             {/* STEP 2 */}
             {activeStep === 1 && (
               <TextField
+                variant="filled"
                 multiline
                 minRows={3}
                 label="توضیحات (bio)"
@@ -176,7 +183,7 @@ export default function MenuCreateStepper() {
             {/* STEP 3 */}
             {activeStep === 2 && (
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <TextField
+                <StyleInput
                   label="لینک آواتار"
                   value={form.avatar}
                   onChange={(e) =>
@@ -209,7 +216,7 @@ export default function MenuCreateStepper() {
                 قبلی
               </Button>
 
-              <Button onClick={handleNext} variant="contained">
+              <Button className={`px-6!`} onClick={handleNext} variant="contained">
                 {activeStep === steps.length - 1 ? "ثبت نهایی" : "بعدی"}
               </Button>
             </Box>
@@ -217,8 +224,9 @@ export default function MenuCreateStepper() {
         )}
       </Box>
       <Button
+       className={` px-9! mt-8!`}
       onClick={() => router.push(`/dashboard/${currentUser?.id}`)}
-       variant="outlined" sx={{mt:5}}>صرف نظر</Button>
+       variant="contained">صرف نظر</Button>
     </Box>
   );
 }

@@ -53,10 +53,10 @@ const handleSignup = (data: FormData) => {
     signUpMutation(
         { name: data.name, email: data.email, password: data.password },
         {
-            onSuccess: (rers) => {
-              console.log("response", rers.data.user.props.id)
+            onSuccess: (res) => {
+              console.log("response", res.data.user.props.id)
                 reset()
-                router.push(`/get-start/${rers.data.user.props.id}`)
+                router.push(`/get-start/${res.data.user.props.id}`)
             }
         }
     )

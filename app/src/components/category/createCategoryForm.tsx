@@ -8,6 +8,7 @@ import {
   Drawer,
 } from "@mui/material";
 import axios from "axios";
+import StyleInput from "../ui/StyleInput";
 
 interface CategoryFormData {
   id?: string;
@@ -89,6 +90,7 @@ export default function CategoryFormDialog({ menuId, created, type, data }: Prop
   return (
     <>
       <Button
+        className={`py-2!`}
         variant="contained"
         color="primary"
         onClick={() => {
@@ -103,12 +105,14 @@ export default function CategoryFormDialog({ menuId, created, type, data }: Prop
       <Drawer
         PaperProps={{
           sx: {
+            background: '#eee',
             maxWidth: 500,
             width: '100%',
             mx: 'auto',
-            borderTopLeftRadius: 3,
-            borderTopRightRadius: 3,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
             p: 3,
+            paddingBottom:0
           },
         }}
         anchor="bottom" open={open} onClose={() => {
@@ -119,23 +123,23 @@ export default function CategoryFormDialog({ menuId, created, type, data }: Prop
             {actionHelper}
           </Typography>
 
-          <TextField
-            fullWidth
+          <StyleInput
+             className="w-full mb-[17px]!"
             label="نام دسته‌بندی"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            sx={{ mb: 2 }}
+
           />
 
-          <TextField
-            fullWidth
+          <StyleInput
+            className="w-full"
             label="آدرس تصویر (Thumbnail)"
             value={form.image}
             onChange={(e) => setForm({ ...form, image: e.target.value })}
-            sx={{ mb: 2 }}
           />
 
           <Button
+            className={`mt-5! py-2!`}
             fullWidth
             variant="contained"
             onClick={handleSubmit}

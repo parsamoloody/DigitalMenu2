@@ -15,7 +15,7 @@ import {
 import { TiThMenu } from "react-icons/ti";
 import { useCurrentUser } from "@/providers/UserProvider";
 import { getCurrentMenu } from "@/packages/lib/prisma/auth/menu-auth.ts";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function MainMenu() {
   const [open, setOpen] = useState(false);

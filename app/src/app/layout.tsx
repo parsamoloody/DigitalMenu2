@@ -9,6 +9,7 @@ import { UserProvider } from "@/providers/UserProvider";
 import { getCurrentUser } from "@/packages/lib/prisma/auth/aw-auth";
 import NavBar from "@/components/navbar/navbar";
 import theme from "@/theme/theme";
+import CustomToast from "@/components/ui/CustomToast";
 
 
 const ravi = localFont({
@@ -44,6 +45,7 @@ export default async function RootLayout({
           </Theme>
         </QueryProvider>
         </UserProvider>
+        <CustomToast />
       </body>
     </html>
   );
