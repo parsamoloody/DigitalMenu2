@@ -43,7 +43,7 @@ export default function UserProfileComponent({user}:{user: UserProps}) {
       <Typography variant="h5" sx={{ mt: 2, fontWeight: "bold" }}>
         {user.name}
       </Typography>
-      <Typography variant="h5" sx={{ mt: 2, fontWeight: "bold" }}>
+      <Typography variant="h5" sx={{fontWeight: "bold" }}>
         {user.email}
       </Typography>
 

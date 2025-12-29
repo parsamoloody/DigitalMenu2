@@ -5,11 +5,12 @@ const CustomToast = () => {
   return (
     <>
        <Toaster
-        position="bottom-right"
+        position="top-center"
         richColors
         toastOptions={{
           style: {
-            width: "8rem",
+            width: "10rem",
+            textAlign: "center",
             borderRadius: "1.3rem",
             background: "#444",
             border: "none",

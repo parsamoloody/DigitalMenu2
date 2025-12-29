@@ -10,11 +10,18 @@ const theme = createTheme({
   direction: 'rtl',
 
   palette: {
-    primary: { main: '#666' },
-    secondary: {main: '#444'}
+    primary: { main: '#444' },
+    secondary: {main: '#555'}
   },
 
   components: {
+     MuiButton: {
+    styleOverrides: {
+      root: {
+        borderRadius: '9.6px',
+      },
+    },
+  },
     MuiInputLabel: {
       styleOverrides: {
         root: {

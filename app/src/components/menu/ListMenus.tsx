@@ -29,10 +29,10 @@ const ListMenus = () => {
          variants={variantXRight}
          initial='hidden'
          animate='visible'
-       className="bg-[url('/images/imageRes.webp')] bg-cover bg-center relative rounded-xl w-[87%] min-[450]:w-96 sm:w-[440px] h-64" key={item.displayId} >
+       className="bg-[url('/images/imageRes.webp')] bg-cover bg-center relative rounded-[1.1rem] w-[87%] min-[450]:w-96 sm:w-[440px] h-64" key={item.displayId} >
           
         <Link href={`/menu/${item.id}`}>
-          <div className="absolute rounded-xl inset-0 bg-black/60"></div>
+          <div className="absolute rounded-[1.1rem] inset-0 bg-black/60"></div>
 
           <Avatar className={`h-22! w-22! absolute top-37 right-3.5`} alt={item.displayId} src='/images/imageRes.webp' />
         
