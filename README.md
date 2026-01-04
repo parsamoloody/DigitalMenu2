@@ -63,6 +63,9 @@ To contribute to this project, follow these steps:
 5. **Run the Development Server**:
    ```bash
    npm run dev
+5. **You can run prisma studio to monitoring**:
+   ```bash
+   npx prisma studio
 
 ## Setup Instructions
 ------
